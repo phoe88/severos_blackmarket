@@ -13,19 +13,47 @@
 </head>
 
 <body>
-   <form action="register.php" method="POST">
-  <input type="text"     name="first_name" />
-  <input type="text"     name="last_name" />
-  <input type="email"    name="email" />
-  <input type="tel"      name="phone" />
-  <select               name="role">…</select>
-  <input type="password" name="password" />
-  <input type="password" name="confirm_password" />
-  <input type="checkbox" name="terms" value="1" />
-  <input type="checkbox" name="newsletter" value="1" />
-  <button type="submit">Create account</button>
+
+<?php 
+
+
+    $errors = [];
+    
+
+    $email = trim(htmlspecialchars($_POST['email']));
+    if(empty($email)){
+        $errors[] = "Data perlu diisi supaya valid";
+    }else if(!preg_match("/^\?+@gmail.com/", $email)){
+        $errors[] = "Data harus diisi dengan email yang valid";
+    };
+
+
+
+    $password = trim(htmlspecialchars($_POST['password']));
+    if(empty($password)){
+        $errors[] = "Data perlu diisi supaya valid";
+    }else if(!preg_match("/^\?+[10-30]/", $password)){
+        $errors[] = "Data perlu diisi setidaknya 10-30 karakter";
+    };
+
+?>
+
+
+
+<form id="form-registration" action="register.php" method="POST">
+   <label for="email">Email</label>
+  <input type="email" name="email" id="email">
+  <label for="password">Password</label>
+  <input type="password" name="email" id="password">
+  <button type="submit">Submit</button>
+
+
 </form>
 
+
+
+
+<script src="script.js"></script>
 </body>
 
 </html>

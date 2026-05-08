@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $role     = htmlspecialchars($_POST['role']);
     $password = $_POST['password'];
     $confirm  = $_POST['confirm_password'];
-    $terms    = isset($_POST['terms']);
+    $termsandcontidion   = isset($_POST['terms']);
+    
 
     $errors = [];
     if (!$first || !$last)         $errors[] = 'Name is required.';
