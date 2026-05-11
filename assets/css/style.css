@@ -1,6 +1,49 @@
-*{
- margin: 0px;
- padding: 0px;
- box-shadow: inset;
- font-family: Roboto;
+* {
+    margin: 0px;
+    padding: 0px;
+    box-shadow: inset;
+    font-family: Roboto;
+    font-size: 1rem;
+}
+
+
+#form-register {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border: 1px solid black;
+    border-radius: 2rem;
+    background-color: #21242A;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem;
+    color: #fff;
+}
+
+#slogan {
+    font-size: x-small;
+    margin-bottom: 2rem;
+}
+
+
+#subtitle{
+    font-size: small;
+}
+
+
+#username{
+    padding: 0.2rem;
+    width: 100%;
+}
+
+
+#email{
+    padding: 0.2rem;
+    width: 100%;
+}
+
+
+#password{
+    padding: 0.2rem;
+    width: 100%;
 }
