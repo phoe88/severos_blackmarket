@@ -12,6 +12,6 @@ untuk sekarang gw masih ngecode sih register.php jadi apa2 masuk ke register.php
 
 
 <?php
-header("Location: register.php"); // relatif, lebih aman
+header("Location: register.php"); 
 exit();
 ?>

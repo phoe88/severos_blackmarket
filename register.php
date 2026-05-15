@@ -2,11 +2,13 @@
 
 include "service/database.php";
 
+
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
+    $hpassword = password_hash($password, PASSWORD_BCRYPT) ?? '';
     $email = trim($_POST['email'] ?? '');
 
     if (empty($username) || empty($email) || empty($password)) {
@@ -23,16 +25,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $sql = "INSERT INTO msuser (username, password, email) VALUES ('$username, $password, $email')";
-    if($db->query($sql)) {
-       echo "Alright youre in";
+    $sql = "INSERT INTO msuser (username, password, email) VALUES ('$username, $hpassword, $email')";
+    if ($db->query($sql)) {
+        echo "Alright youre in";
     }
+
+
+
 
     if (empty($errors)) {
         echo 'Registrasi berhasil!';
         exit();
     }
 }
+?>
+
+<?php
+include "includes/header.php";
 ?>
 
 <!DOCTYPE html>
@@ -53,14 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Register</h1>
             <p class="tagline">Sign up. Load up. Stand out.</p>
             <br>
-            
-                <?php foreach ($errors as $error): ?>
-                    <p style="color:red;">
-                        <?= htmlspecialchars($error) ?>
-                    </p>
-                <?php endforeach; ?>
-
-            
+            <?php foreach ($errors as $error): ?>
+                <p style="color:red;">
+                    <?= htmlspecialchars($error) ?>
+                </p>
+            <?php endforeach; ?>
             <br>
             <form action="register.php" method="POST">
                 <p class="highlighter">
@@ -70,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username"
                         placeholder="Enter your username(min. 8 characters)" />
-                        <?php if (!empty($errors)) ?>
+                    <?php if (!empty($errors)) ?>
                 </div>
 
                 <div class="form-group">
