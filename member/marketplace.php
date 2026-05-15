@@ -16,8 +16,8 @@
     <div id="divider"></div>
     <div class="container"></div>
     <div class="filter-container">
-    <h1>Filters</h1>
-
+        <h1>Filters</h1>
+        <p class="tagline">Weapon Type</p>
     </div>
 </body>
 

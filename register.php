@@ -51,7 +51,7 @@ include "includes/header.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
@@ -100,3 +100,8 @@ include "includes/header.php";
 </body>
 
 </html>
+
+
+<?php
+include "includes/footer.php";
+?>
