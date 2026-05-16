@@ -22,10 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $sql = "SELECT * FROM msuser WHERE 'password' = $password AND 'email' = $email";
-    if ($db->query($sql)) {
-        echo "Alright youre in";
+    $sql = "SELECT * FROM msuser WHERE 'email' = $email AND 'password' = $password";
+
+    $result = $db->query($sql);
+
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_assoc();
+        echo "Welcome" . $data["username"];
+    } else {
+        echo "account not found";
     }
+
 
     if (empty($errors)) {
         echo 'Login berhasil!';
@@ -42,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <?php include "includes/header.php"; ?>

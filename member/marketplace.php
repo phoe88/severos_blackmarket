@@ -18,6 +18,7 @@
     <div class="filter-container">
         <h1>Filters</h1>
         <p class="tagline">Weapon Type</p>
+        <input type="range" name="" id="">
     </div>
 </body>
 
