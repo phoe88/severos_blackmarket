@@ -1,48 +1,45 @@
 <?php
-
 include "service/database.php";
-
 
 $errors = [];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-    $hpassword = password_hash($password, PASSWORD_BCRYPT) ?? '';
-    $email = trim($_POST['email'] ?? '');
+if (isset($_POST["register"])) {
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+    $email = trim($_POST['email']);
+
 
     if (empty($username) || empty($email) || empty($password)) {
         $errors[] = 'Semua field wajib diisi.';
     } else {
         if (strlen($username) < 8) {
-            $errors[] = 'Username minimal 8 karakter.';
+            $errors['username'] = 'Username minimal 8 karakter.';
         }
         if (strlen($password) < 8) {
-            $errors[] = 'Password minimal 8 karakter.';
+            $errors['password'] = 'Password minimal 8 karakter.';
         }
         if (!preg_match('/^[^@]+@gmail\.com$/', $email)) {
-            $errors[] = 'Email harus menggunakan @gmail.com.';
+            $errors['email'] = 'Email harus menggunakan @gmail.com.';
         }
     }
-
-    $sql = "INSERT INTO msuser (username, password, email) VALUES ('$username, $hpassword, $email')";
-    if ($db->query($sql)) {
-        ("Location: ../login.php");
-    }
-
-
 
 
     if (empty($errors)) {
-        echo 'Registrasi berhasil!';
-        exit();
+        $hpassword = password_hash($password, PASSWORD_BCRYPT);
+        $credit = 200;
+        $role = "guest";
+
+
+
+        $sql = "INSERT INTO msuser (username, password, email, credit, role) VALUES ('$username', '$hpassword', '$email', '$credit', '$role')";
+        if ($db->query($sql)) {
+            header("Location: login.php");
+        }
     }
 }
 ?>
 
-<?php
-include "includes/header.php";
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,19 +52,14 @@ include "includes/header.php";
 </head>
 
 <body>
-
+    <?php
+    include "includes/header.php";
+    ?>
     <section id="background">
 
         <div class="card">
             <h1>Register</h1>
             <p class="tagline">Sign up. Load up. Stand out.</p>
-            <br>
-            <?php foreach ($errors as $error): ?>
-                <p style="color:red;">
-                    <?= htmlspecialchars($error) ?>
-                </p>
-            <?php endforeach; ?>
-            <br>
             <form action="register.php" method="POST">
                 <p class="highlighter">
                     Create your account by filling in the information below.
@@ -76,18 +68,26 @@ include "includes/header.php";
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username"
                         placeholder="Enter your username(min. 8 characters)" />
-                    <?php if (!empty($errors)) ?>
+                    <?php if (!empty($errors['username'])): ?>
+                        <span class="error" style="color: red"><?= $errors['username'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email(...@gmail.com)" />
+                    <input type="email" id="email" name="email" placeholder="Enter your email( ..@gmail.com)" />
+                    <?php if (!empty($errors['email'])): ?>
+                        <span class="error" style="color: red"><?= $errors['email'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password"
                         placeholder="Enter your password(min. 8 characters)" />
+                    <?php if (!empty($errors['password'])): ?>
+                        <span class="error" style="color: red"><?= $errors['password'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <button type="submit" class="btn-register">Register</button>
