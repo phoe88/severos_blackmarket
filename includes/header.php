@@ -11,7 +11,7 @@
 <body>
     <header>
 
-        <img class="logo" alt="logo.png">
+        <img src="assets/logo.png" id="logo" alt="logo.png" width="40px" height="40px">
 
         <!-- <ul aria-label="Main Navigation" id="navigation">
             <li id="home">Home</li>

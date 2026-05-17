@@ -2,20 +2,26 @@
 include "../service/database.php";
 session_start();
 
-if ($_SESSION['email']) {
-    $data = "SELECT * FROM msuser WHERE role = 'admin'";
-    $results = $db->query($data);
+// if ($_SESSION['email']) {
+//     $data = "SELECT * FROM msuser WHERE role = 'admin'";
+//     $results = $db->query($data);
 
-    if ($results->num_rows > 0) {
-        $rows = $results->fetch_assoc();
-
-        echo '<br>' . $rows['username'];
-
-    } else {
-
-    }
+//     if ($results->num_rows > 0) {
+//         $rows = $results->fetch_assoc();
+//     } else {
+//         echo "no data";
+//     }
 
 
+
+// }
+
+
+if (isset($_POST['logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: ../login.php");
+    exit();
 
 }
 
@@ -31,13 +37,26 @@ if ($_SESSION['email']) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard admin</title>
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 
 <body>
-    <?php
-    echo "Welcome and rise and shine" . "<br>" . "" . $_SESSION['email'];
-    ;
-    ?>
+
+    <section id="background">
+        <?php
+        echo "Welcome and rise and shine" . "<br>" . "" . $rows['username'];
+        ;
+        ?>
+
+        <form action="dashboard.php" method="post">
+            <button type="submit" name="logout">Logout</button>
+
+        </form>
+    </section>
+
+
+
+
 </body>
 
 </html>
