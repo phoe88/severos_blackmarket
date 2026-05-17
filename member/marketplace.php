@@ -27,27 +27,30 @@ if (isset($_POST["logout"])) {
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 
-<!-- <?= include "../includes/header.php"; ?> -->
 
 
 <body>
+    <section id="background">
+        <div id="welcome">
 
-    <!-- <div id="welcome"><?php echo "welcome home" . $_SESSION['username'] ?></div> -->
-    <form action="marketplace.php" method="post">
-        <button type="submit" name="logout">Logout</button>
-    </form>
-    <div id="header">
-        <h1>Marketplace</h1>
-        <p class="tagline">Only the strongest survive. Choose your weapons enforce your dominance</p>
-    </div>
-    <input type="search" name="search" id="search">
-    <div id="divider"></div>
-    <div class="container"></div>
-    <div class="filter-container">
-        <h1>Filters</h1>
-        <p class="tagline">Weapon Type</p>
-        <input type="range" name="" id="">
-    </div>
+        </div>
+        <form action="marketplace.php" method="post">
+            <button type="submit" name="logout">Logout</button>
+        </form>
+        <div id="header">
+            <h1>Marketplace</h1>
+            <p class="tagline">Only the strongest survive. Choose your weapons enforce your dominance</p>
+        </div>
+        <input type="search" name="search" id="search">
+        <div id="divider"></div>
+        <div class="container"></div>
+        <div class="filter-container">
+            <h1>Filters</h1>
+            <p class="tagline">Weapon Type</p>
+            <input type="range" name="range" id="range">
+        </div>
 </body>
+</section>
+
 
 </html>

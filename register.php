@@ -4,9 +4,9 @@ include "service/database.php";
 $errors = [];
 
 if (isset($_POST["register"])) {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    $email = trim($_POST['email']);
+    $username = htmlspecialchars(trim($_POST['username']));
+    $password = htmlspecialchars(trim($_POST['password']));
+    $email = htmlspecialchars(trim($_POST['email']));
 
 
     if (empty($username) || empty($email) || empty($password)) {
@@ -25,7 +25,7 @@ if (isset($_POST["register"])) {
 
 
     if (empty($errors)) {
-        $hpassword = password_hash($password, PASSWORD_BCRYPT);
+        $hpassword = password_hash("fudge267", $password);
         $credit = 200;
         $role = "guest";
 
@@ -34,8 +34,10 @@ if (isset($_POST["register"])) {
         $sql = "INSERT INTO msuser (username, password, email, credit, role) VALUES ('$username', '$hpassword', '$email', '$credit', '$role')";
         if ($db->query($sql)) {
             header("Location: login.php");
+            exit();
         }
     }
+    $db->close();
 }
 ?>
 
@@ -68,29 +70,22 @@ if (isset($_POST["register"])) {
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username"
                         placeholder="Enter your username(min. 8 characters)" />
-                    <?php if (!empty($errors['username'])): ?>
-                        <span class="error" style="color: red"><?= $errors['username'] ?></span>
-                    <?php endif; ?>
+
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email( ..@gmail.com)" />
-                    <?php if (!empty($errors['email'])): ?>
-                        <span class="error" style="color: red"><?= $errors['email'] ?></span>
-                    <?php endif; ?>
+
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password"
                         placeholder="Enter your password(min. 8 characters)" />
-                    <?php if (!empty($errors['password'])): ?>
-                        <span class="error" style="color: red"><?= $errors['password'] ?></span>
-                    <?php endif; ?>
                 </div>
 
-                <button type="submit" class="btn-register">Register</button>
+                <button type="submit" class="btn-register" name="register">Register</button>
             </form>
 
             <p class="register-link">Already have an account? <a href="login.php">Login here.</a></p>

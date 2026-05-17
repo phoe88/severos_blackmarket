@@ -7,7 +7,7 @@
   scroll-behavior: smooth;
 }
 
-#background {
+.background {
   background-color: #1a1a1a;
   display: flex;
   justify-content: center;
@@ -168,11 +168,10 @@ header {
 
 }
 
-.logo {
+#logo {
   width: 2rem;
   height: 2rem;
   margin-right: 10rem;
-  background: url(images/logo.png);
 }
 
 
@@ -241,3 +240,5 @@ footer {
   background-color: #666666;
   margin-bottom: 2rem;
 }
+
+.filter-container {}
