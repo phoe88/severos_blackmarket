@@ -2,25 +2,26 @@
 include "../service/database.php";
 session_start();
 
-// if ($_SESSION['email']) {
-//     $data = "SELECT * FROM msuser WHERE role = 'admin'";
-//     $results = $db->query($data);
+if ($_SESSION['email']) {
+    $data = "SELECT * FROM msuser WHERE role = 'admin'";
+    $results = $db->query($data);
 
-//     if ($results->num_rows > 0) {
-//         $rows = $results->fetch_assoc();
-//     } else {
-//         echo "no data";
-//     }
-
-
-
-// }
+    if ($results->num_rows > 0) {
+        $rows = $results->fetch_assoc();
+        echo $rows['username'];
+    } else {
+        echo "no data";
+    }
 
 
-if (isset($_POST['logout'])) {
+
+}
+
+
+if (isset($_POST["logout"])) {
     session_unset();
     session_destroy();
-    header("Location: ../login.php");
+    header("Location: ../register.php");
     exit();
 
 }
@@ -45,7 +46,7 @@ if (isset($_POST['logout'])) {
     <section id="background">
         <?php
         echo "Welcome and rise and shine" . "<br>" . "" . $rows['username'];
-        ;
+
         ?>
 
         <form action="dashboard.php" method="post">
