@@ -62,7 +62,11 @@ const filtercheck = document.getElementById('checkbox-filter');
 filtercheck.addEventListener('click', function () {
     e.preventDefault();
     const search = document.getElementById('search');
-
+    const search_element = document.createElement('div');
+    search_element.innerHTML = `
+    
+    `
+    
 
 
 })
