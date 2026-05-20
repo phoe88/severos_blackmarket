@@ -30,19 +30,17 @@ if (isset($_POST["login"])) {
         }
     }
 
-    if (empty($errors)) {
+   if (empty($errors)) {
+    $sql = "SELECT * FROM msuser WHERE email='$email'";
+    $result = $db->query($sql);
 
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
 
-
-        $sql = "SELECT * FROM msuser WHERE email='$email' AND password='$password'";
-        $result = $db->query($sql);
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
+        if (password_verify($password, $row['password'])) {
             $_SESSION["email"] = $row["email"];
 
-
-            if ($email === 'admin@gmail.com' && $password === 'admin123') {
+            if ($row['role'] === 'admin') {
                 $_SESSION["is_admin"] = true;
                 header("Location: admin/dashboard.php");
             } else {
@@ -53,9 +51,13 @@ if (isset($_POST["login"])) {
         } else {
             $errors[] = 'Email atau password salah.';
         }
+    } else {
+        $errors[] = 'Email atau password salah.';
     }
 
     $db->close();
+
+   }
 }
 ?>
 

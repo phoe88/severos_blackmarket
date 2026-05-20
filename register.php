@@ -25,7 +25,7 @@ if (isset($_POST["register"])) {
 
 
     if (empty($errors)) {
-        $hpassword = password_hash("fudge267", $password);
+        $hpassword = password_hash($password, PASSWORD_BCRYPT);
         $credit = 200;
         $role = "guest";
 
