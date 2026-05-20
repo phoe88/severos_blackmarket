@@ -30,34 +30,34 @@ if (isset($_POST["login"])) {
         }
     }
 
-   if (empty($errors)) {
-    $sql = "SELECT * FROM msuser WHERE email='$email'";
-    $result = $db->query($sql);
+    if (empty($errors)) {
+        $sql = "SELECT * FROM msuser WHERE email='$email'";
+        $result = $db->query($sql);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
 
-        if (password_verify($password, $row['password'])) {
-            $_SESSION["email"] = $row["email"];
+            if (password_verify($password, $row['password'])) {
+                $_SESSION["email"] = $row["email"];
 
-            if ($row['role'] === 'admin') {
-                $_SESSION["is_admin"] = true;
-                header("Location: admin/dashboard.php");
+                if ($row['role'] === 'admin') {
+                    $_SESSION["is_admin"] = true;
+                    header("Location: admin/dashboard.php");
+                } else {
+                    $_SESSION["is_login"] = true;
+                    header("Location: member/marketplace.php");
+                }
+                exit();
             } else {
-                $_SESSION["is_login"] = true;
-                header("Location: member/marketplace.php");
+                $errors[] = 'Email atau password salah.';
             }
-            exit();
         } else {
             $errors[] = 'Email atau password salah.';
         }
-    } else {
-        $errors[] = 'Email atau password salah.';
+
+        $db->close();
+
     }
-
-    $db->close();
-
-   }
 }
 ?>
 
@@ -93,14 +93,21 @@ if (isset($_POST["login"])) {
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" />
-
+                    <?php if (!empty($errors["email"])): ?>
+                        <strong
+                            style="margin-top: 12px; color: red; font-size: 12px; font-style: italic"><?php echo htmlspecialchars($errors["email"]); ?></strong>
+                    <?php endif; ?>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password"
                         placeholder="Enter your password(min. 8 characters)" />
-
+                    <?php if (!empty($errors["password"])): ?>
+                        <strong style="margin-top: 12px; color: red; font-size: 12px; font-style: italic">
+                            <?php echo htmlspecialchars($errors["password"]); ?>
+                        </strong>
+                    <?php endif; ?>
                 </div>
 
 

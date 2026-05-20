@@ -16,15 +16,17 @@
   height: 100vh;
 }
 
-
 #backgrounds {
   background-color: #1a1a1a;
   display: flex;
   flex-direction: column;
   color: #fff;
-  margin-top: 6rem;
+  padding: 5rem;
+  margin-top: 8rem;
+  padding-top: 20rem;
   height: 100vh;
 }
+
 
 
 .card {
@@ -201,6 +203,7 @@ header {
   align-items: center;
   gap: 2rem;
   justify-content: space-between;
+  margin-right: 10rem;
 }
 
 
@@ -316,6 +319,8 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 3rem;
+  /* ✅ cukup sedikit karena padding-top sudah handle */
 }
 
 
@@ -340,4 +345,18 @@ footer {
   border: 0rem;
   border-radius: 1rem;
   width: 30%;
+}
+
+
+#logout-btn {
+  background: none;
+  color: white;
+  border: none;
+  padding: none;
+  cursor: pointer;
+}
+
+#logout-btn:hover {
+  color: #20afe8;
+  transition: 250ms ease-in-out 50ms;
 }

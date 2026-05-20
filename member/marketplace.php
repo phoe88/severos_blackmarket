@@ -4,12 +4,12 @@ include "../service/database.php";
 
 session_start();
 
-if (isset($_POST["logout"])) {
-    session_unset();
-    session_destroy();
-    header("Location: ../index.php");
-    exit();
-}
+// if (isset($_POST["logout"])) {
+//     session_unset();
+//     session_destroy();
+//     header("Location: ../index.php");
+//     exit();
+// }
 
 ?>
 
@@ -35,9 +35,6 @@ if (isset($_POST["logout"])) {
     ?>
 
     <section id="backgrounds">
-        <form action="marketplace.php" method="post">
-            <button type="submit" name="logout">Logout</button>
-        </form>
         <div id="header-content">
             <h1 id="header-h1">Marketplace</h1>
             <p class="tagline">Only the strongest survive. Choose your weapons enforce your dominance</p>
