@@ -66,10 +66,57 @@ filtercheck.addEventListener('click', function () {
     search_element.innerHTML = `
     
     `
-    
+
 
 
 })
 
+
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.slider img');
+let currentIndex = 0;
+let autoScrollInterval;
+
+function scrollToSlide(index) {
+    currentIndex = (index + slides.length) % slides.length;
+    slides[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+}
+
+function startAutoScroll(delay = 1000) {
+    autoScrollInterval = setInterval(() => {
+        scrollToSlide(currentIndex + 1);
+    }, delay);
+}
+
+function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+}
+
+slider.addEventListener('mouseenter', stopAutoScroll);
+slider.addEventListener('mouseleave', () => startAutoScroll());
+
+startAutoScroll();
+
+
+const dots = document.querySelectorAll('.slider-nav a');
+
+function scrollToSlide(index) {
+    currentIndex = (index + slides.length) % slides.length;
+    slides[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+
+
+    dots.forEach((dot, i) => {
+        dot.style.opacity = i === currentIndex ? '1' : '0.75';
+    });
+}
+
+
+dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+        stopAutoScroll();
+        scrollToSlide(i);
+        startAutoScroll();
+    });
+});
 
 

@@ -1,6 +1,7 @@
 <?php
 
-include "../service/database.php";
+
+
 
 
 if (isset($_POST["index"])) {
@@ -38,7 +39,7 @@ if (isset($_SESSION["is_login"]) == true) {
 <body>
     <header>
 
-        <img src="assets/logo.png" id="logo" alt="logo.png" width="40px" height="40px">
+        <img value="Severos" src="assets/logo.png" id="logo" alt="logo.png" width="40px" height="40px">
 
         <ul aria-label="Auth Navigation" id="authen">
             <?php

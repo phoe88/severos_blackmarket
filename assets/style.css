@@ -20,13 +20,22 @@
   background-color: #1a1a1a;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: #fff;
-  padding: 5rem;
-  margin-top: 8rem;
-  padding-top: 20rem;
   height: 100vh;
 }
 
+#homebackground {
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  height: 100vh;
+  padding-top: 12rem;
+}
 
 
 .card {
@@ -58,6 +67,15 @@
   font-size: 1rem;
   text-align: center;
   margin-bottom: 2rem;
+}
+
+.tagline.taglinehome {
+  font-style: bold;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 10rem;
+  color: #aaaaaa;
+  font-size: 1rem;
 }
 
 .card .description {
@@ -250,9 +268,10 @@ li:hover {
 
 
 footer {
-  padding: 5rem;
+  padding: 4rem;
   background-color: #121212;
   width: 100%;
+  height: auto;
   color: #ffffff;
   box-shadow: 0 0rem 5rem 0.1rem #5f5f5f;
 
@@ -319,8 +338,8 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
-  /* ✅ cukup sedikit karena padding-top sudah handle */
+  position: relative;
+
 }
 
 
@@ -329,6 +348,78 @@ footer {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 0.1rem;
+}
+
+#header-content #home-h1 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  position: absolute;
+  top: 14rem;
+  box-shadow: 2rem 0rem 5rem 0.1rem #5f5f5f;
+  background-color: #1a1a1a;
+  opacity: 0.8;
+  padding: 1rem;
+}
+
+
+
+.slider-container {
+  padding: 2rem;
+}
+
+.slider-wrapper {
+  position: relative;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.slider {
+  display: flex;
+  aspect-ratio: 16 / 9;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  box-shadow: 0 1.5rem 3rem -0.75rem #00000040;
+  border-radius: 0.5rem;
+  --ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slider img {
+  flex: 1 0 100%;
+  scroll-snap-align: start;
+  object-fit: cover;
+}
+
+.slider-nav {
+  display: flex;
+  column-gap: 1rem;
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.slider-nav a {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0.75;
+  transition: opacity ease 250ms;
+}
+
+.slider-nav a:hover {
+  opacity: 1;
 }
 
 
