@@ -4,12 +4,12 @@ include "../service/database.php";
 
 session_start();
 
-// if (isset($_POST["logout"])) {
-//     session_unset();
-//     session_destroy();
-//     header("Location: ../index.php");
-//     exit();
-// }
+if (isset($_POST["logout"])) {
+    session_unset();
+    session_destroy();
+    header("Location: ../index.php");
+    exit();
+}
 
 ?>
 
@@ -35,21 +35,28 @@ session_start();
     ?>
 
     <section id="backgrounds">
-        <div id="header-content">
-            <h1 id="header-h1">Marketplace</h1>
-            <p class="tagline">Only the strongest survive. Choose your weapons enforce your dominance</p>
-        </div>
-        <div id="search-container">
-            <input type="search" name="search" id="search" placeholder="Search weapons..">
+        <div id="wrapper">
+            <div id="header-content-container">
+                <h1 id="header-h1">Marketplace</h1>
+                <p class="caption">Only the strongest survive. Choose your weapons enforce your
+                    dominance</p>
+            </div>
+            <div id="search-container">
+                <input type="search" name="search" id="search" placeholder="Search weapons..">
 
-            <div class="divider divider-horizontal"></div>
+                <div class="divider divider-horizontal"></div>
+            </div>
         </div>
 
-        <div id="container"></div>
-        <div class="filter-container">
+        <div class="containercard"></div>
+
+        <div class="filtercontainer">
             <h1>Filters</h1>
-            <p class="tagline">Weapon Type</p>
+
+            <span id="important-msg">Price Range</span>
             <input type="range" name="range" id="range">
+            <p class="caption">Weapon Type</p>
+
         </div>
 
 
@@ -59,12 +66,14 @@ session_start();
 
 
 
-        <script src="../assets/script.js"></script>
+
     </section>
 
     <?php
     include "../includes/footer.php";
     ?>
+
+    <script src="../assets/script.js"></script>
 </body>
 
 
