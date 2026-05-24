@@ -10,7 +10,7 @@ $db = mysqli_connect($hostname, $username, $password, $database);
 if ($db->connect_error) {
     die("gabisa connect");
 } else {
-    echo "connectnya masuk bro";
+    echo "smpe sekarang masi masuk bro";
 }
 
 

@@ -59,14 +59,6 @@ if (isset($_POST["logout"])) {
 
         </div>
 
-
-
-
-
-
-
-
-
     </section>
 
     <?php

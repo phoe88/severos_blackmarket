@@ -11,6 +11,7 @@ const array = [
 
 const container = document.querySelector('.containercard');
 
+
 const rarityColors = {
     "Common": "#b0b0b0",
     "Rare": "#4a90d9",
@@ -24,7 +25,7 @@ function createCard(item) {
     const carditem = document.createElement('div');
     carditem.className = 'carditem';
     carditem.innerHTML = `
-        <div style="cursor: pointer;">
+        <div>
             <h1 style="color: ${color}">${item.gun}</h1>
             <p style="color: ${color}">${item.rarity}</p>
             <p>Type: ${item.type}</p>
@@ -32,13 +33,15 @@ function createCard(item) {
         </div>
     `;
     carditem.addEventListener('mouseenter', function () {
-        carditem.style.transform = 'scale(1.05)';
+        carditem.style.transform = 'scale(1.1)';
         carditem.style.transition = 'transform 0.3s ease';
+        carditem.style.cursor = 'pointer';
     });
 
     carditem.addEventListener('mouseleave', function () {
         carditem.style.transform = 'scale(1)';
         carditem.style.transition = 'transform 0.3s ease';
+        carditem.style.cursor = 'pointer';
     });
 
     carditem.addEventListener('click', function () {
@@ -67,7 +70,6 @@ function createCard(item) {
         const cancelbtn = document.querySelector('#cancel-btn');
         confirmbtn.addEventListener('click', function (e) {
             if (e.target.id === 'confirm-btn') {
-                alert(`You have purchased ${item.gun} for $${item.price.toLocaleString()}!`);
                 background.removeChild(confirmPuchase);
             }
         });
@@ -88,13 +90,6 @@ function createCard(item) {
 array.forEach(item => {
     container.appendChild(createCard(item));
 });
-
-
-
-
-
-
-
 
 
 
@@ -128,53 +123,3 @@ filtercheck.addEventListener('click', function () {
 
 
 })
-
-
-const slider = document.querySelector('.slider');
-const slides = document.querySelectorAll('.slider img');
-let currentIndex = 0;
-let autoScrollInterval;
-
-function scrollToSlide(index) {
-    currentIndex = (index + slides.length) % slides.length;
-    slides[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-}
-
-function startAutoScroll(delay = 1000) {
-    autoScrollInterval = setInterval(() => {
-        scrollToSlide(currentIndex + 1);
-    }, delay);
-}
-
-function stopAutoScroll() {
-    clearInterval(autoScrollInterval);
-}
-
-slider.addEventListener('mouseenter', stopAutoScroll);
-slider.addEventListener('mouseleave', () => startAutoScroll());
-
-startAutoScroll();
-
-
-const dots = document.querySelectorAll('.slider-nav a');
-
-function scrollToSlide(index) {
-    currentIndex = (index + slides.length) % slides.length;
-    slides[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-
-
-    dots.forEach((dot, i) => {
-        dot.style.opacity = i === currentIndex ? '1' : '0.75';
-    });
-}
-
-
-dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-        stopAutoScroll();
-        scrollToSlide(i);
-        startAutoScroll();
-    });
-});
-
-
