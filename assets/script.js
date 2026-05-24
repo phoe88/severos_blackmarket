@@ -1,17 +1,3 @@
-const array = [
-    { gun: "Desert Eagle 'Saint Edge'", rarity: "Epic", type: "Handgun", price: 6500 },
-    { gun: "White Fang-465 'Artic Howl'", rarity: "Epic", type: "Assault Rifle", price: 142000 },
-    { gun: "AR-73/223 'Urban Spectre'", rarity: "Rare", type: "Assault Rifle", price: 7900 },
-    { gun: "L85A 'Divine Spectre'", rarity: "Epic", type: "Handgun", price: 6500 },
-    { gun: "G11 'Caseless Edge'", rarity: "Epic", type: "Handgun", price: 6500 },
-    { gun: "AK-15 'Guardian'", rarity: "Epic", type: "Assault Rifle", price: 100000 },
-    { gun: "MG42 'Destroyer Mark II'", rarity: "Legendary", type: "Machine Gun", price: 1168000 },
-    { gun: "VX-Raptor 'Sky Hunter'", rarity: "Epic", type: "Assault Rifle", price: 4500 },
-];
-
-const container = document.querySelector('.containercard');
-
-
 const rarityColors = {
     "Common": "#b0b0b0",
     "Rare": "#4a90d9",
@@ -19,19 +5,13 @@ const rarityColors = {
     "Legendary": "#f0a500",
 };
 
-function createCard(item) {
-    const color = rarityColors[item.rarity] || "#fff";
+document.querySelectorAll('.carditem').forEach(function (carditem) {
+    const rarity = carditem.dataset.rarity;
+    const color = rarityColors[rarity] || "#fff";
 
-    const carditem = document.createElement('div');
-    carditem.className = 'carditem';
-    carditem.innerHTML = `
-        <div>
-            <h1 style="color: ${color}">${item.gun}</h1>
-            <p style="color: ${color}">${item.rarity}</p>
-            <p>Type: ${item.type}</p>
-            <p>Price: $${item.price.toLocaleString()}</p>
-        </div>
-    `;
+    const gun = carditem.dataset.gun;
+    const price = parseInt(carditem.dataset.price);
+
     carditem.addEventListener('mouseenter', function () {
         carditem.style.transform = 'scale(1.1)';
         carditem.style.transition = 'transform 0.3s ease';
@@ -41,85 +21,59 @@ function createCard(item) {
     carditem.addEventListener('mouseleave', function () {
         carditem.style.transform = 'scale(1)';
         carditem.style.transition = 'transform 0.3s ease';
-        carditem.style.cursor = 'pointer';
+        carditem.style.cursor = 'default';
     });
 
     carditem.addEventListener('click', function () {
-        const confirmPuchase = document.createElement('div');
-        const background = document.querySelector('body');
-        confirmPuchase.innerHTML = `
-        <div id="black-background">
-            <div class="confirm-purchase">
-                <h1 id="confirm-title">Are you sure you want to purchase ?</h1>
-                <span><h1 id="gun-name" style="color: ${color}">${item.gun}</h1></span> 
-                <span id="confirm-text">for price</span>
-                <span id="gun-price">$${item.price.toLocaleString()}</span>
-                <div class="confirm-btns">
-                    <button id="cancel-btn">Cancel</button>
-                    <button id="confirm-btn">Confirm</button>
+        const existing = document.getElementById('black-background');
+        if (existing) existing.remove();
+
+        const confirmPurchase = document.createElement('div');
+        confirmPurchase.innerHTML = `
+            <div id="black-background">
+                <div class="confirm-purchase">
+                    <h1 id="confirm-title">Are you sure you want to purchase?</h1>
+                    <span><h1 id="gun-name" style="color: ${color}">${gun}</h1></span>
+                    <span id="confirm-text">for price</span>
+                    <span id="gun-price">$${price.toLocaleString()}</span>
+                    <div class="confirm-btns">
+                        <button id="cancel-btn">Cancel</button>
+                        <button id="confirm-btn">Confirm</button>
+                    </div>
                 </div>
             </div>
-        </div>
         `;
 
+        document.body.appendChild(confirmPurchase);
 
-        background.appendChild(confirmPuchase);
-        background.style.position = 'relative';
-
-        const confirmbtn = document.querySelector('#confirm-btn');
-        const cancelbtn = document.querySelector('#cancel-btn');
-        confirmbtn.addEventListener('click', function (e) {
-            if (e.target.id === 'confirm-btn') {
-                background.removeChild(confirmPuchase);
-            }
-        });
-        cancelbtn.addEventListener('click', function (e) {
-            if (e.target.id === 'cancel-btn') {
-                background.removeChild(confirmPuchase);
-            }
+        confirmPurchase.querySelector('#confirm-btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'transaction.php';
         });
 
-
-
-
-    })
-
-
-    return carditem;
-}
-array.forEach(item => {
-    container.appendChild(createCard(item));
+        confirmPurchase.querySelector('#cancel-btn').addEventListener('click', function (e) {
+            e.preventDefault();
+            confirmPurchase.remove();
+        });
+    });
 });
 
+// Filter checkbox
+const filterCheckboxes = document.querySelectorAll('.checkbox-filter');
 
+filterCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        const checkedGuns = Array.from(filterCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.parentElement.textContent.trim());
 
-const filter = document.querySelector('.filtercontainer');
-
-
-function filterGet(item) {
-    const filter_content = document.createElement('div');
-    const filteritem = item.gun;
-    filter_content.innerHTML =
-
-        `<input type="checkbox" name="checkbox" id="checkbox-filter">${filteritem}`
-    return filter_content;
-}
-
-array.forEach(item => {
-    filter.appendChild(filterGet(item));
-})
-
-
-const filtercheck = document.getElementById('checkbox-filter');
-
-filtercheck.addEventListener('click', function () {
-    e.preventDefault();
-    const search = document.getElementById('search');
-    const search_element = document.createElement('div');
-    search_element.innerHTML = `
-    
-    `
-
-
-
-})
+        document.querySelectorAll('.carditem').forEach((card) => {
+            const cardGun = card.dataset.gun;
+            if (checkedGuns.length === 0 || checkedGuns.includes(cardGun)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
