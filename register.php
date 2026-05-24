@@ -4,9 +4,9 @@ include "service/database.php";
 $errors = [];
 
 if (isset($_POST["register"])) {
-    $username = htmlspecialchars(trim($_POST['username']));
-    $password = htmlspecialchars(trim($_POST['password']));
-    $email = htmlspecialchars(trim($_POST['email']));
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+    $email = trim($_POST['email']);
 
 
     if (empty($username) || empty($email) || empty($password)) {

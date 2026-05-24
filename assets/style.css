@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   scroll-behavior: smooth;
 }
@@ -93,12 +93,14 @@
   margin-bottom: 2rem;
 }
 
-
 .highlighter {
-  padding: 1rem;
-  color: #fff;
-  font-size: 0.8rem;
+  color: #20afe8;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-bottom: 1.2rem;
+  display: block;
 }
+
 
 .form-group {
   margin-bottom: 1rem;
@@ -626,4 +628,10 @@ footer {
   color: #ffffff;
   font-size: 1.2rem;
   margin: 0rem;
+}
+
+
+#navigation #home-page #home-btn:hover {
+  color: #20afe8;
+  transition: 250ms ease-in-out 50ms;
 }
