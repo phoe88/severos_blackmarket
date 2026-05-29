@@ -1,38 +1,49 @@
 <?php
-
 include "../service/database.php";
+include __DIR__ . '/../includes/session.php';
 
-session_start();
-
-if (isset($_POST["logout"])) {
-    session_unset();
-    session_destroy();
-    header("Location: ../index.php");
+if (!isset($_SESSION["is_login"]) || $_SESSION["is_login"] !== true || $_SESSION["role"] !== 'guest') {
+    header("Location: ../login.php");
     exit();
 }
 
-if (isset($_GET["search"])) {
-    $search = htmlspecialchars($_GET['search'] ?? '');
+$search = trim($_GET['search'] ?? '');
+$selectedType = $_GET['type'] ?? '';
+$selectedRarity = $_GET['rarity'] ?? '';
+$selectedMaxPrice = isset($_GET['max_price']) ? (int) $_GET['max_price'] : 0;
+
+$items = [];
+$result = $db->query("SELECT id, gun, rarity, type, price, description, damage, accuracy, fire_rate FROM weapons ORDER BY id ASC");
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $items[] = $row;
+    }
+    $result->free();
 }
 
-$array = [
-    ["gun" => "Desert Eagle 'Saint Edge'", "rarity" => "Epic", "type" => "Handgun", "price" => 6500],
-    ["gun" => "White Fang-465 'Artic Howl'", "rarity" => "Epic", "type" => "Assault Rifle", "price" => 142000],
-    ["gun" => "AR-73/223 'Urban Spectre'", "rarity" => "Rare", "type" => "Assault Rifle", "price" => 7900],
-    ["gun" => "L85A 'Divine Spectre'", "rarity" => "Epic", "type" => "Handgun", "price" => 6500],
-    ["gun" => "G11 'Caseless Edge'", "rarity" => "Epic", "type" => "Handgun", "price" => 6500],
-    ["gun" => "AK-15 'Guardian'", "rarity" => "Epic", "type" => "Assault Rifle", "price" => 100000],
-    ["gun" => "MG42 'Destroyer Mark II'", "rarity" => "Legendary", "type" => "Machine Gun", "price" => 1168000],
-    ["gun" => "VX-Raptor 'Sky Hunter'", "rarity" => "Epic", "type" => "Assault Rifle", "price" => 4500],
-];
+$types = array_values(array_unique(array_column($items, 'type')));
+$rarities = array_values(array_unique(array_column($items, 'rarity')));
 
-$rarityColors = [
-    "Common" => "#b0b0b0",
-    "Rare" => "#4a90d9",
-    "Epic" => "#9b59b6",
-    "Legendary" => "#f0a500",
-];
+$prices = array_column($items, 'price');
+sort($prices);
+$minPrice = $prices ? min($prices) : 0;
+$maxPrice = $prices ? max($prices) : 0;
+if ($selectedMaxPrice === 0) {
+    $selectedMaxPrice = $maxPrice;
+}
 
+$filteredItems = array_filter($items, function ($item) use ($search, $selectedType, $selectedRarity, $selectedMaxPrice) {
+    $matchesSearch = $search === '' || stripos($item['gun'], $search) !== false || stripos($item['type'], $search) !== false || stripos($item['rarity'], $search) !== false;
+    $matchesType = $selectedType === '' || $item['type'] === $selectedType;
+    $matchesRarity = $selectedRarity === '' || $item['rarity'] === $selectedRarity;
+    $matchesPrice = $item['price'] <= $selectedMaxPrice;
+    return $matchesSearch && $matchesType && $matchesRarity && $matchesPrice;
+});
+
+function rarityColor($rarity)
+{
+    return ['Common' => '#b0b0b0', 'Rare' => '#4a90d9', 'Epic' => '#9b59b6', 'Legendary' => '#f0a500'][$rarity] ?? '#ffffff';
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,59 +56,70 @@ $rarityColors = [
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 
-<body>
+<body class="member-body">
     <?php include "../includes/header.php"; ?>
 
-    <section id="backgrounds">
-        <div id="wrapper">
-            <div id="header-content-container">
-                <h1 id="header-h1">Marketplace</h1>
-                <p class="caption">Only the strongest survive. Choose your weapons enforce your
-                    dominance</p>
+    <main class="member-shell">
+        <section class="market-hero">
+            <div class="market-hero-copy">
+                <span class="member-badge">Marketplace</span>
+                <h1>Find your next weapon</h1>
+                <p class="member-lead">Filter by type, rarity, and price to discover the best gear for your loadout.</p>
             </div>
-            <div id="search-container">
-                <input type="search" name="search" id="search" placeholder="Search weapons..">
-                <div class="divider divider-horizontal"></div>
-            </div>
-        </div>
+            <form action="marketplace.php" method="GET" class="market-search-form">
+                <input type="search" name="search" placeholder="Search weapons, type or rarity" value="<?= htmlspecialchars($search); ?>">
+                <select name="type">
+                    <option value="">All Weapon Types</option>
+                    <?php foreach ($types as $type): ?>
+                        <option value="<?= htmlspecialchars($type); ?>" <?= $selectedType === $type ? 'selected' : ''; ?>><?= htmlspecialchars($type); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select name="rarity">
+                    <option value="">All Rarities</option>
+                    <?php foreach ($rarities as $rarity): ?>
+                        <option value="<?= htmlspecialchars($rarity); ?>" <?= $selectedRarity === $rarity ? 'selected' : ''; ?>><?= htmlspecialchars($rarity); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="max_price" class="range-label">Max price: $<span id="price-value"><?= number_format($selectedMaxPrice); ?></span></label>
+                <input type="range" name="max_price" id="max_price" min="<?= $minPrice; ?>" max="<?= $maxPrice; ?>" value="<?= $selectedMaxPrice; ?>">
+                <button type="submit" class="btn-primary">Apply filters</button>
+            </form>
+        </section>
 
-        <div class="containercard">
-            <?php foreach ($array as $item):
-                $color = $rarityColors[$item['rarity']] ?? '#fff';
-                ?>
-                <div class="carditem" data-gun="<?= htmlspecialchars($item['gun']) ?>"
-                    data-rarity="<?= htmlspecialchars($item['rarity']) ?>"
-                    data-type="<?= htmlspecialchars($item['type']) ?>" data-price="<?= $item['price'] ?>"
-                    data-color="<?= $color ?>">
-                    <div>
-                        <h1 style="color: <?= $color ?>"><?= htmlspecialchars($item['gun']) ?></h1>
-                        <p style="color: <?= $color ?>"><?= htmlspecialchars($item['rarity']) ?></p>
-                        <p>Type: <?= htmlspecialchars($item['type']) ?></p>
-                        <p>Price: $<?= number_format($item['price']) ?></p>
-                    </div>
+        <section class="market-grid">
+            <?php if (empty($filteredItems)): ?>
+                <div class="empty-state">
+                    <p>No weapons match your search criteria. Try changing the filters.</p>
                 </div>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="filtercontainer">
-            <h1>Filters</h1>
-
-            <span id="important-msg">Price Range</span>
-            <input type="range" name="range" id="range">
-            <p class="caption">Weapon Type</p>
-
-            <?php foreach ($array as $item): ?>
-                <div>
-                    <input type="checkbox" class="checkbox-filter"> <?= htmlspecialchars($item['gun']) ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-    </section>
+            <?php else: ?>
+                <?php foreach ($filteredItems as $item): ?>
+                    <article class="market-card">
+                        <div class="market-card-header">
+                            <span class="rarity-pill" style="background: <?= rarityColor($item['rarity']); ?>;"><?= htmlspecialchars($item['rarity']); ?></span>
+                            <span class="price-pill">$<?= number_format($item['price']); ?></span>
+                        </div>
+                        <h2><?= htmlspecialchars($item['gun']); ?></h2>
+                        <p class="market-type"><?= htmlspecialchars($item['type']); ?></p>
+                        <p class="market-description"><?= htmlspecialchars($item['description']); ?></p>
+                        <div class="market-card-footer">
+                            <a class="btn-secondary" href="weapon-detail.php?id=<?= $item['id']; ?>">View Details</a>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </section>
+    </main>
 
     <?php include "../includes/footer.php"; ?>
-
-    <script src="../assets/script.js"></script>
+    <script>
+        const priceRange = document.getElementById('max_price');
+        const priceValue = document.getElementById('price-value');
+        if (priceRange && priceValue) {
+            priceRange.addEventListener('input', function () {
+                priceValue.textContent = Number(priceRange.value).toLocaleString();
+            });
+        }
+    </script>
 </body>
 
 </html>

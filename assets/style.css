@@ -518,11 +518,720 @@ footer {
   padding: 0rem 12rem 0rem 2rem;
 }
 
+/* Member section styles */
+.member-body {
+  background-color: #0d0d0d;
+  color: #e8e8e8;
+  min-height: 100vh;
+  padding-top: 100px;
+}
+
+.member-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.member-page-intro {
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  background: #141414;
+  border: 1px solid #232323;
+  border-radius: 1rem;
+}
+
+.member-page-intro h1 {
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+}
+
+.member-lead {
+  color: #b3b3b3;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.search-form input {
+  flex: 1;
+  min-width: 220px;
+  padding: 0.9rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #2d2d2d;
+  background: #111111;
+  color: #fff;
+}
+
+.search-form button {
+  border: none;
+  padding: 0.9rem 1.3rem;
+  border-radius: 0.75rem;
+  background: #20afe8;
+  color: #111;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.market-card {
+  background: #151515;
+  border: 1px solid #232323;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.15);
+}
+
+.market-card h2 {
+  margin: 0 0 0.8rem;
+  font-size: 1.25rem;
+}
+
+.rarity-tag {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  color: #111;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.price {
+  color: #20afe8;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.empty-state {
+  padding: 2rem;
+  background: #191919;
+  border: 1px solid #2a2a2a;
+  border-radius: 1rem;
+  text-align: center;
+  color: #d3d3d3;
+}
+
+.member-card,
+.weapon-card,
+.transaction-table,
+.member-hero,
+.admin-hero {
+  border-radius: 1rem;
+}
+
+.member-card,
+.weapon-card {
+  background: #171717;
+  border: 1px solid #222;
+  padding: 1.4rem;
+}
+
+.member-card h2,
+.weapon-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.weapon-card p {
+  color: #c7c7c7;
+  margin: 0.35rem 0;
+}
+
+.transaction-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #141414;
+  border: 1px solid #222;
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid #222;
+  color: #ddd;
+}
+
+.transaction-table th {
+  text-align: left;
+  color: #aaa;
+}
+
+.transaction-table tr:last-child td {
+  border-bottom: none;
+}
+
+.member-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-admin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.4rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #20afe8;
+  color: #111;
+  font-weight: 700;
+}
+
+.btn-secondary {
+  background: #222;
+  color: #fff;
+}
+
+@media (max-width: 860px) {
+  .member-shell,
+  .admin-dashboard {
+    padding: 1rem;
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .site-navigation,
+  .site-actions {
+    justify-content: center;
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+}
+
+/* Site header and admin dashboard styles */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 2rem;
+  background-color: #121212;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.25);
+}
+
+.site-brand a {
+  color: #ffffff;
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.site-navigation a,
+.site-actions a,
+.logout-form button {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.8rem 1rem;
+  border-radius: 0.6rem;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.site-navigation a:hover,
+.site-actions a:hover,
+.logout-form button:hover,
+.admin-nav-link:hover {
+  background-color: #1f1f1f;
+}
+
+.admin-nav-link {
+  border: 1px solid transparent;
+}
+
+.site-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-label {
+  color: #bbbbbb;
+  font-size: 0.95rem;
+}
+
+.logout-form button {
+  background: none;
+  border: 1px solid #434343;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.logout-form button:hover {
+  background-color: #20afe8;
+  color: #111;
+}
+
+.admin-body {
+  background-color: #0e0e0e;
+  color: #eaeaea;
+  padding-top: 100px;
+  min-height: 100vh;
+}
+
+.admin-dashboard {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+.admin-hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: #191919;
+  border: 1px solid #262626;
+}
+
+.admin-hero-copy h1 {
+  font-size: 2.4rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.admin-badge {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: #202020;
+  color: #20afe8;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.admin-lead {
+  max-width: 560px;
+  color: #b2b2b2;
+  line-height: 1.7;
+}
+
+.admin-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-admin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.4rem;
+  border-radius: 0.75rem;
+  background-color: #20afe8;
+  color: #111;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: #2b2b2b;
+  color: #f5f5f5;
+}
+
+.admin-nav {
+  margin: 2rem 0 1rem;
+}
+
+.admin-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.75rem;
+  background: #181818;
+  color: #d8d8d8;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.admin-nav-link.active,
+.admin-nav-link:hover {
+  background: #20afe8;
+  color: #000;
+  border-color: #20afe8;
+}
+
+.admin-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  padding: 1.6rem;
+  border-radius: 1rem;
+  background: #141414;
+  border: 1px solid #232323;
+}
+
+.dashboard-card h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.dashboard-card p {
+  color: #b5b5b5;
+  line-height: 1.8;
+}
+
+@media (max-width: 860px) {
+  .admin-hero {
+    flex-direction: column;
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .site-navigation {
+    justify-content: center;
+  }
+
+  .site-actions {
+    justify-content: center;
+  }
+}
+
+
 .caption {
   color: #aaaaaa;
   font-size: 1rem;
 }
 
+.market-hero {
+  padding: 2rem;
+  background: #151515;
+  border: 1px solid #222;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.market-hero-copy {
+  margin-bottom: 1.5rem;
+}
+
+.market-search-form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 180px 180px;
+  align-items: end;
+}
+
+.market-search-form input,
+.market-search-form select,
+.checkout-form input,
+.checkout-form textarea,
+.field-row label {
+  width: 100%;
+}
+
+.market-search-form input,
+.market-search-form select,
+.checkout-form input,
+.checkout-form textarea {
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #2d2d2d;
+  background: #0f0f0f;
+  color: #fff;
+}
+
+.market-search-form select {
+  appearance: none;
+}
+
+.market-search-form .btn-primary,
+.market-card-footer .btn-secondary,
+.button-row .btn-secondary,
+.button-row .btn-primary {
+  width: auto;
+}
+
+.rarity-pill,
+.price-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.rarity-pill {
+  color: #111;
+  margin-right: 0.75rem;
+}
+
+.price-pill {
+  background: #111;
+  color: #20afe8;
+}
+
+.market-type {
+  color: #c9c9c9;
+  margin-bottom: 0.7rem;
+}
+
+.market-description {
+  color: #b5b5b5;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.market-card-footer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+.weapon-detail-grid,
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 860px) {
+  .weapon-detail-grid,
+  .checkout-grid {
+    grid-template-columns: 1.8fr 1fr;
+  }
+}
+
+.weapon-detail-card,
+.checkout-summary,
+.checkout-form {
+  background: #151515;
+  border: 1px solid #232323;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.weapon-detail-card h2,
+.checkout-summary h2 {
+  margin-bottom: 1rem;
+}
+
+.weapon-detail-type,
+.weapon-detail-description,
+.checkout-summary p {
+  margin-bottom: 0.85rem;
+}
+
+.weapon-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.weapon-stats div {
+  background: #111;
+  padding: 1rem;
+  border-radius: 0.9rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.weapon-stats strong {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.weapon-stats span {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.weapon-price {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #20afe8;
+  margin-bottom: 1.25rem;
+}
+
+.weapon-actions,
+.button-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.checkout-note {
+  color: #888;
+  margin-top: 1rem;
+}
+
+..checkout-form .field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.checkout-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.button-row {
+  justify-content: flex-start;
+}
+
+.weapon-management-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 980px) {
+  .weapon-management-grid {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+}
+
+.weapon-form-card,
+.weapon-table-card {
+  background: #151515;
+  border: 1px solid #232323;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.weapon-form-card h2,
+.weapon-table-card h2 {
+  margin-bottom: 1rem;
+}
+
+.field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.field-row label {
+  color: #d1d1d1;
+}
+
+.field-row input,
+.field-row select,
+.field-row textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #2d2d2d;
+  background: #0f0f0f;
+  color: #fff;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid #222;
+  padding: 1rem;
+  text-align: left;
+  color: #ddd;
+}
+
+.admin-table th {
+  background: #181818;
+  color: #bbb;
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.inline-form {
+  display: inline-block;
+  margin: 0;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: #bf1e1e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-danger:hover {
+  background: #8f1414;
+}
+
+.error-banner,
+.success-banner {
+  padding: 1rem 1.25rem;
+  border-radius: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.error-banner {
+  background: #481c1c;
+  color: #f3b4b4;
+}
+
+.success-banner {
+  background: #173217;
+  color: #b7f1b7;
+}
 
 #checkbox-filter {
   margin-right: 1rem;
